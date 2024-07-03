@@ -1,0 +1,11 @@
+test:
+  path: /
+  controller: App\Presentation\Controller\TestFormController::showTestForm
+  options:
+    description: Форма теста
+
+test-result:
+  path: /test/{id}
+  controller: App\Presentation\Controller\TestFormController::showTestResult
+  options:
+    description: Результаты теста

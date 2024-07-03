@@ -1,0 +1,34 @@
+{% extends '@Base/base.html.twig' %}
+{% block content %}
+    <div class="container mb-3 mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Пройти тест</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Результаты теста</li>
+            </ol>
+        </nav>
+        <div class="card">
+            <h5 class="card-header main-header">Привет {{ name }}! Ниже результаты твоего теста</h5>
+            <div class="card-body row">
+                <div class="col-sm-12 col-md-6 mx-0 mb-3">
+                    Вопросы, на которые ты ответил правильно({{ correctQuestions|length }}):
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for correctQuestion in correctQuestions %}
+                            <li class="list-group-item">{{ correctQuestion.question }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="card-body row">
+                <div class="col-sm-12 col-md-6 mx-0 mb-3">
+                    Вопросы, на которые ты ответил неправильно({{ incorrectQuestions|length }}):
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for incorrectQuestion in incorrectQuestions %}
+                        <li class="list-group-item">{{ incorrectQuestion.question }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

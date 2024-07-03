@@ -1,0 +1,42 @@
+networks:
+  default:
+    name: test_local
+    external: true
+
+volumes:
+  database:
+    name: local_test_database
+    external: true
+
+services:
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: ./../
+      dockerfile: ./docker/php-fpm/Dockerfile
+    volumes:
+      - ./../app:/var/www/
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:80
+    volumes:
+      - ../app:/var/www:rw
+    depends_on:
+      - php-fpm
+  pg:
+    image: postgis/postgis:13-3.0
+    ports:
+      - "5933:5432"
+    environment:
+      - POSTGRES_PASSWORD=db_password
+      - POSTGRES_DB=core
+      - POSTGRES_USER=db_user
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - database:/var/lib/postgresql/data/pgdata

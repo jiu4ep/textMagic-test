@@ -1,0 +1,7 @@
+twig:
+    file_name_pattern: '*.twig'
+    paths:
+        '%kernel.project_dir%/src/Presentation/Template/': Base
+when@test:
+    twig:
+        strict_variables: true
